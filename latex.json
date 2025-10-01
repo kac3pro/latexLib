@@ -1,0 +1,165 @@
+{
+	// Place your snippets for latex here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+  "Hello world": {
+    "prefix": "hi",
+    "body": ["Hello, world!"],
+    "description": "Simple hello world"
+  },
+
+  "LuaSnip snippet template": {
+    "prefix": "snp",
+    "body": [
+      "require(\"luasnip\").snippet(",
+      "  { trig = \"${1:<>}\" },",
+      "  { ${2:body} }",
+      "),"
+    ],
+    "description": "Template for a LuaSnip snippet (from your LuaSnip 'snp')"
+  },
+
+  "Begin environment": {
+    "prefix": "beg",
+    "body": ["\\\\begin{${1:env}}", "  ${2:content}", "\\\\end{${1:env}}"],
+    "description": "LaTeX \\begin{env} ... \\end{env} (env reused)"
+  },
+
+  "Inline math \\( ... \\)": {
+    "prefix": "mk",
+    "body": ["\\\\(${1:math}\\\\)"],
+    "description": "Inline math using \\( ... \\)"
+  },
+
+  "Display math \\[ ... \\]": {
+    "prefix": "dm",
+    "body": ["\\\\[${1:math}\\\\]"],
+    "description": "Display math using \\[ ... \\]"
+  },
+
+  "Theorem environment": {
+    "prefix": "thm",
+    "body": [
+      "\\\\begin{theorem}[${1:optional name}]",
+      "  ${2:statement}",
+      "\\\\end{theorem}"
+    ],
+    "description": "theorem environment"
+  },
+
+  "Definition environment": {
+    "prefix": "def",
+    "body": [
+      "\\\\begin{definition}[${1:optional name}]",
+      "  ${2:definition}",
+      "\\\\end{definition}"
+    ],
+    "description": "definition environment"
+  },
+
+  "Proof environment": {
+    "prefix": "proof",
+    "body": ["\\\\begin{proof}", "  ${1:proof text}", "\\\\end{proof}"],
+    "description": "proof environment"
+  },
+
+  "Set braces": {
+    "prefix": "set",
+    "body": ["\\\\{${1:elements}\\\\}"],
+    "description": "Set braces { ... }"
+  },
+
+  "Sum": {
+    "prefix": "sum",
+    "body": ["\\\\sum_{${1:lower}}${2:upper}"],
+    "description": "Sum with subscript and body"
+  },
+
+  "Product": {
+    "prefix": "prod",
+    "body": ["\\\\prod_{${1:lower}}${2:upper}"],
+    "description": "Product with subscript and body"
+  },
+
+  "Inverse superscript": {
+    "prefix": "inv",
+    "body": ["^{-1}"],
+    "description": "superscript -1"
+  },
+
+  "Square superscript": {
+    "prefix": "sr",
+    "body": ["^2"],
+    "description": "square superscript"
+  },
+
+  "bez straty ogólności": {
+    "prefix": "bso",
+    "body": ["bez straty ogólności"],
+    "description": "Polish phrase 'bez straty ogólności'"
+  },
+
+  "Następujące warunki (enumerate) ": {
+    "prefix": "nwsr",
+    "body": [
+      "Następujące warunki są równoważne:",
+      "\\\\begin{enumerate}",
+      "  \\\\item ${1:item}",
+      "\\\\end{enumerate}"
+    ],
+    "description": "Polish: 'the following conditions are equivalent' with enumerate"
+  },
+
+  "Double vertical bars \\| ... \\|": {
+    "prefix": "||",
+    "body": ["\\\\|${1:stuff}\\\\|"],
+    "description": "Double vertical bars"
+  },
+
+  "Ellipses \\ldots": {
+    "prefix": "...",
+    "body": ["\\\\ldots"],
+    "description": "\\ldots"
+  },
+
+  "wtw (wtedy i tylko wtedy)": {
+    "prefix": "wtw",
+    "body": ["wtedy i tylko wtedy"],
+    "description": "Polish phrase 'wtedy i tylko wtedy'"
+  },
+
+  "diff macro": {
+    "prefix": "diff",
+    "body": ["\\\\diff ${1:arg}"],
+    "description": "diff macro (placeholder)"
+  },
+
+  "Integral with diff": {
+    "prefix": "int",
+    "body": ["\\\\int_{${1:lower}} ${2:integrand} \\\\diff ${3:var}"],
+    "description": "Integral template: \\int_{...} ... \\diff ..."
+  },
+
+  "Partial derivative": {
+    "prefix": "pd",
+    "body": ["\\\\frac{\\\\partial ${1:f}}{\\\\partial ${2:x}}"],
+    "description": "Partial derivative fraction"
+  },
+
+  "Another snippet (foo)": {
+    "prefix": "foo",
+    "body": ["Another snippet."],
+    "description": "From the original 'foo' snippet"
+  }
+}
