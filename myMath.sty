@@ -1,21 +1,22 @@
-% Math packages
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
-\usepackage{multicol}
-\usepackage{xspace}
-\usepackage{xfrac}
+\NeedsTeXFormat{LaTeX2e}[2020-10-01]
+\ProvidesPackage{myMath}[2026/10/20 v0.2 Custom math macros]
 
+% Dependencies used by the macros below. mathtools also loads amsmath.
+% Symbol fonts are configured by the document (unicode-math in preamble.tex).
+\RequirePackage{mathtools}
+\RequirePackage{xspace}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{trimclip}
 
-% \renewcommand{\phi}{\varphi}
-\AtBeginDocument{
+% unicode-math initializes some symbols at \begin{document}. Apply preferences
+% at the end of that initialization so they are not silently overwritten.
+\AddToHook{begindocument/end}{
     \renewcommand{\phi}{\varphi}
     \newcommand{\eps}{\varepsilon}
     \renewcommand{\subset}{\subseteq}
     \renewcommand{\supset}{\supseteq}
+    \providecommand{\nsubset}{\nsubseteq}
+    \providecommand{\nsupset}{\nsupseteq}
     \renewcommand{\nsubset}{\nsubseteq}
     \renewcommand{\nsupset}{\nsupseteq}
     \newcommand{\nin}{\notin}
@@ -24,21 +25,29 @@
     \renewcommand{\leq}{\leqslant}
     \renewcommand{\geq}{\geqslant}
 
-    % \renewcommand{\bar}{\wideoverbar}
     \renewcommand{\bar}{\overline}
 
     \renewcommand{\tilde}{\widetilde}
     \renewcommand{\hat}{\widehat}
     \renewcommand{\mod}{\pmod}
+
+    % fontspec initializes these text commands, so override them afterwards.
+    \renewcommand{\a}{\alpha}
+    \renewcommand{\b}{\beta}
+    \renewcommand{\c}{\gamma}
+    \renewcommand{\d}{\delta}
+    \renewcommand{\l}{\lambda}
+    \renewcommand{\H}{{\ensuremath{\mathbb{H}}}\xspace}
+    \renewcommand{\O}{\varnothing}
+
+    % Save the final unicode-math arrow definitions before wrapping them.
+    \let\oldimplies\implies
+    \renewcommand{\implies}{\ensuremath{\oldimplies}\xspace}
+    \let\oldimpliedby\impliedby
+    \renewcommand{\impliedby}{\ensuremath{\oldimpliedby}\xspace}
+    \let\oldiff\iff
+    \renewcommand{\iff}{\ensuremath{\oldiff}\xspace}
 }
-
-
-% greeks
-\renewcommand{\a}{\alpha}
-\renewcommand{\b}{\beta}
-\renewcommand{\c}{\gamma}
-\renewcommand{\d}{\delta}
-\renewcommand{\l}{\lambda}
 
 % discrete math
 \newcommand{\sbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}} % Square binomial
@@ -63,19 +72,10 @@
 \newcommand{\const}{\mathrm{const}}
 \newcommand{\id}{\mathrm{id}}
 
-
 % small matrix
 \newenvironment{spmatrix}{
 \left(\begin{smallmatrix}
 }{\end{smallmatrix}\right)}
-
-% implications 
-\let\oldimplies\implies
-\renewcommand{\implies}{\ensuremath{\oldimplies}\xspace}
-\let\oldimpliedby\impliedby
-\renewcommand{\impliedby}{\ensuremath{\oldimpliedby}\xspace}
-\let\oldiff\iff
-\renewcommand{\iff}{\ensuremath{\oldiff}\xspace}
 
 %integral "d" symbol
 \newcommand{\di}{\mathop{}\!d}
@@ -87,11 +87,10 @@
 \newcommand{\dlim}{\displaystyle\lim}
 
 %text
-\newcommand{\qtq}[1]{\quad\textup{#1}\quad } 
+\newcommand{\qtq}[1]{\quad\textup{#1}\quad }
 \renewcommand{\text}{\textup}
 
-% comments 
-\usepackage[normalem]{ulem}
+% comments
 \newcommand{\mynote}[2]{\noindent
 {\bfseries\sffamily\scriptsize#1}
 {\small\(\spadesuit\)\textsf{\uwave{#2}}\(\spadesuit\)}}
@@ -99,8 +98,6 @@
 % special arrow names
 \newcommand{\longto}{\longrightarrow}
 \newcommand{\longgets}{\longleftarrow}
-\usepackage{trimclip} % Required to cut the glyph
-\makeatletter
 \newcommand{\realhook}{\mathrel{\clipbox{0pt 0pt 0.7em 0pt}{$\hookrightarrow$}}}
 \newcommand{\longhookrightarrow}{%
   \realhook
@@ -109,7 +106,6 @@
   \mkern-2.5mu
   \rightarrow
 }
-\makeatother
 
 % sets of numbers
 \newcommand{\Z}{{\ensuremath{\mathbb{Z}}}\xspace}
@@ -121,11 +117,9 @@
 \newcommand{\F}{{\ensuremath{\mathbb{F}}}\xspace}
 \newcommand{\K}{{\ensuremath{\mathbb{K}}}\xspace}
 \newcommand{\D}{{\ensuremath{\mathbb{D}}}\xspace}
-\renewcommand{\H}{{\ensuremath{\mathbb{H}}}\xspace}
 
 \newcommand{\Zgt}{\Z_{>0}}
 \newcommand{\Zge}{\Z_{\ge 0}}
-\renewcommand{\O}{\varnothing} % perhaps this is not a good symbol
 
 % fraktur
 \newcommand{\fm}{{\mathfrak{m}}}
@@ -156,7 +150,7 @@
 \newcommand{\one}{\mathbf{1}}
 \DeclareMathOperator*{\E}{\mathbf{E}}
 
-%roman 
+%roman
 \DeclareMathOperator{\rC}{C}
 
 % topology
@@ -196,8 +190,6 @@
 \newcommand{\ab}{\mathrm{ab}}
 \newcommand{\normsg}{\vartriangleleft}
 
-
-
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\set}{\{}{\}}
 \DeclarePairedDelimiter{\pars}{(}{)}
@@ -205,23 +197,4 @@
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \DeclarePairedDelimiter{\ang}{\langle}{\rangle}
 
-% colons
-
-%COLOR
-\definecolor{fresh}{HTML}{2bb101}
-\definecolor{checked}{HTML}{1e5e06}
-\definecolor{double}{HTML}{5E3800}
-\definecolor{external}{HTML}{a81a78}
-\definecolor{later}{HTML}{0410ff}
-\definecolor{minor-rev}{HTML}{d96a09}
-\definecolor{major-rev}{HTML}{c90000}
-\definecolor{skip}{HTML}{ffffff}%
-\definecolor{normal}{HTML}{000000}%
-% %BLACK
-% \definecolor{fresh}{HTML}{000000}
-% \definecolor{checked}{HTML}{000000}
-% \definecolor{double}{HTML}{000000}
-% \definecolor{external}{HTML}{000000}
-% \definecolor{later}{HTML}{000000}
-% \definecolor{minor-rev}{HTML}{000000}
-% \definecolor{major-rev}{HTML}{000000}
+\endinput

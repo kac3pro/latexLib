@@ -1,8 +1,26 @@
-\ProvidesPackage{myEnvs}[2025/09/01 v0.1 Custom environments]
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{myEnvs}[2026/10/20 v0.2 Custom theorem environments]
 \RequirePackage{amsthm}
+\RequirePackage{thmtools}
 
-\theoremstyle{definition}
-\newtheorem{zadanie}{Zadanie}
-\newtheorem*{zadanie*}{Zadanie}
+% Statements share a counter, reset in each section.
+\declaretheorem[style=plain,numberwithin=section,name=Theorem]{theorem}
+\declaretheorem[style=plain,numbered=no,name=Theorem]{theorem*}
+\declaretheorem[style=plain,sibling=theorem,name=Observation]{observation}
+\declaretheorem[style=plain,sibling=theorem,name=Proposition]{proposition}
+\declaretheorem[style=plain,sibling=theorem,name=Lemma]{lemma}
+\declaretheorem[style=plain,sibling=theorem,name=Fact]{fact}
+\declaretheorem[style=plain,sibling=theorem,name=Corollary]{corollary}
 
+\declaretheorem[style=definition,sibling=theorem,name=Definition]{definition}
+\declaretheorem[style=definition,sibling=theorem,name=Example]{example}
+\declaretheorem[style=definition,numbered=no,name=Question]{question}
 
+\declaretheorem[style=remark,sibling=theorem,name=Remark]{remark}
+\declaretheorem[style=remark,numbered=no,name=Notation]{notation}
+
+% Exercises keep their own counter for compatibility with existing documents.
+\declaretheorem[style=definition,name=Zadanie]{zadanie}
+\declaretheorem[style=definition,numbered=no,name=Zadanie]{zadanie*}
+
+\endinput

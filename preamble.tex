@@ -1,0 +1,145 @@
+% Complete shared setup. Load after \documentclass.
+\usepackage{iftex}
+\RequireLuaTeX
+
+% myMath loads mathtools before unicode-math, as required by unicode-math.
+\usepackage{myMath}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Prefer project-local STIX Two fonts; otherwise use the TeX-installed files.
+% Set these paths before \input{preamble.tex} to use another font directory.
+\providecommand{\STIXTwoTextPath}{fonts/}
+\providecommand{\STIXTwoMathPath}{fonts/}
+\IfFileExists{\STIXTwoTextPath STIXTwoText-Regular.otf}{%
+  \setmainfont{STIXTwoText}[
+    Path=\STIXTwoTextPath,
+    Extension=.otf,
+    UprightFont=*-Regular,
+    ItalicFont=*-Italic,
+    BoldFont=*-Bold,
+    BoldItalicFont=*-BoldItalic
+  ]
+}{%
+  \setmainfont{STIXTwoText}[
+    Extension=.otf,
+    UprightFont=*-Regular,
+    ItalicFont=*-Italic,
+    BoldFont=*-Bold,
+    BoldItalicFont=*-BoldItalic
+  ]
+}
+\IfFileExists{\STIXTwoMathPath STIXTwoMath-Regular.otf}{%
+  \setmathfont{STIXTwoMath-Regular.otf}[
+    Path=\STIXTwoMathPath,
+    StylisticSet={4,10,11}
+  ]
+}{%
+  \setmathfont{STIXTwoMath-Regular.otf}[StylisticSet={4,10,11}]
+}
+
+% Page layout and general-purpose packages.
+\usepackage[headings]{fullpage}
+\usepackage{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multicol}
+\usepackage{xfrac}
+\usepackage{microtype}
+\setlength{\marginparwidth}{2cm}
+\relpenalty=9999
+\binoppenalty=9999
+\setlist[enumerate,1]{label=(\roman*),font=\upshape}
+
+% Diagrams.
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning}
+\tikzset{
+  every path/.style={>={Stealth[length=4pt,width=5pt,inset=2.3pt,sep=-1.7pt]}}
+}
+
+% Revision colours.
+\definecolor{fresh}{HTML}{2BB101}
+\definecolor{checked}{HTML}{1E5E06}
+\definecolor{double}{HTML}{5E3800}
+\definecolor{external}{HTML}{A81A78}
+\definecolor{later}{HTML}{0410FF}
+\definecolor{minor-rev}{HTML}{D96A09}
+\definecolor{major-rev}{HTML}{C90000}
+\definecolor{skip}{HTML}{FFFFFF}
+\definecolor{normal}{HTML}{000000}
+
+% Bibliography resource and style.
+\usepackage[
+  backend=biber,
+  maxbibnames=99,
+  datamodel=mrnumber,
+  giveninits=true,
+  style=alphabetic,
+  sortcites,
+  sorting=nyt
+]{biblatex}
+\addbibresource{refs.bib}
+\renewcommand*{\multicitedelim}{\addcomma\space}
+\renewcommand*{\bibfont}{\footnotesize}
+\DeclareFieldFormat[article,inproceedings,incollection]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat{mrnumber}{%
+  MR\addcolon\space
+  \ifhyperref
+    {\href{https://www.ams.org/mathscinet-getitem?mr=#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}}
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}{\printfield{doi}}{}%
+  \newunit\newblock
+  \printfield{mrnumber}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}{\usebibmacro{eprint}}{}%
+  \newunit\newblock
+  \iftoggle{bbx:url}{\usebibmacro{url+urldate}}{}}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{\step[fieldset=issn,null]}
+  }
+}
+\AtEveryBibitem{\iffieldundef{doi}{}{\clearfield{url}}}
+\AtEveryCitekey{\iffieldundef{doi}{}{\clearfield{url}}}
+
+% Footnotes and links. Load cleveref before declaring theorem environments.
+\usepackage[perpage]{footmisc}
+\renewcommand{\thefootnote}{%
+  \ifcase\value{footnote}%
+  \or\textdagger
+  \or\textdaggerdbl
+  \fi
+}
+\usepackage{hyperref}
+\hypersetup{
+  hypertexnames=false,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=green,
+  filecolor=magenta,
+  urlcolor=cyan
+}
+\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage{myEnvs}
+% amsart's default proof marker otherwise uses a legacy AMS symbol font.
+\renewcommand{\qedsymbol}{\ensuremath{\mdlgwhtsquare}}
+
+% Additional notation shared with the Jung paper.
+\DeclareMathOperator{\deff}{def}
+\renewcommand{\vec}[2]{%
+  \begin{pmatrix}
+    #1\\
+    #2
+  \end{pmatrix}%
+}

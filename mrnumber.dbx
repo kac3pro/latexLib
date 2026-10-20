@@ -1,0 +1,3 @@
+% Additional biblatex field for MathSciNet identifiers.
+\DeclareDatamodelFields[type=field,datatype=verbatim]{mrnumber}
+\DeclareDatamodelEntryfields{mrnumber}
