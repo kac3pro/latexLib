@@ -1,51 +1,227 @@
-% General packages used throughout the book
-\ProvidesPackage{myMath}
-\usepackage{bbold} % \mathbb{1}
+% Math packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multicol}
+\usepackage{xspace}
+\usepackage{xfrac}
 
-%general
-\newcommand{\const}{\text{const}}
-\newcommand{\id}{\text{id}}
-% personal preference
-\renewcommand{\phi}{\varphi}
-\newcommand{\eps}{\varepsilon}
-\newcommand{\TODO}{\textcolor{red}{\textbf{TODO}}}
+
+% \renewcommand{\phi}{\varphi}
+\AtBeginDocument{
+    \renewcommand{\phi}{\varphi}
+    \newcommand{\eps}{\varepsilon}
+    \renewcommand{\subset}{\subseteq}
+    \renewcommand{\supset}{\supseteq}
+    \renewcommand{\nsubset}{\nsubseteq}
+    \renewcommand{\nsupset}{\nsupseteq}
+    \newcommand{\nin}{\notin}
+    \renewcommand{\le}{\leqslant}
+    \renewcommand{\ge}{\geqslant}
+    \renewcommand{\leq}{\leqslant}
+    \renewcommand{\geq}{\geqslant}
+
+    % \renewcommand{\bar}{\wideoverbar}
+    \renewcommand{\bar}{\overline}
+
+    \renewcommand{\tilde}{\widetilde}
+    \renewcommand{\hat}{\widehat}
+    \renewcommand{\mod}{\pmod}
+}
+
+
+% greeks
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\renewcommand{\c}{\gamma}
+\renewcommand{\d}{\delta}
+\renewcommand{\l}{\lambda}
+
+% discrete math
+\newcommand{\sbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}} % Square binomial
+\newcommand{\cbinom}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}} % Curly binomial
+\newcommand{\angbinom}[2]{\genfrac{\langle}{\rangle}{0pt}{}{#1}{#2}} % Angle binomial
+
+% basic operators
+\newcommand{\pd}{\partial}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\type}{type}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\newcommand{\const}{\mathrm{const}}
+\newcommand{\id}{\mathrm{id}}
+
+
+% small matrix
+\newenvironment{spmatrix}{
+\left(\begin{smallmatrix}
+}{\end{smallmatrix}\right)}
+
+% implications 
+\let\oldimplies\implies
+\renewcommand{\implies}{\ensuremath{\oldimplies}\xspace}
+\let\oldimpliedby\impliedby
+\renewcommand{\impliedby}{\ensuremath{\oldimpliedby}\xspace}
+\let\oldiff\iff
+\renewcommand{\iff}{\ensuremath{\oldiff}\xspace}
+
+%integral "d" symbol
+\newcommand{\di}{\mathop{}\!d}
+% TODO: add \limits\int somehow
+
+% displaystyle elements, though perhaps those shouldn't be used
+\newcommand{\ds}{\displaystyle}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dlim}{\displaystyle\lim}
+
+%text
+\newcommand{\qtq}[1]{\quad\textup{#1}\quad } 
+\renewcommand{\text}{\textup}
+
+% comments 
+\usepackage[normalem]{ulem}
+\newcommand{\mynote}[2]{\noindent
+{\bfseries\sffamily\scriptsize#1}
+{\small\(\spadesuit\)\textsf{\uwave{#2}}\(\spadesuit\)}}
+
+% special arrow names
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\longgets}{\longleftarrow}
+\usepackage{trimclip} % Required to cut the glyph
+\makeatletter
+\newcommand{\realhook}{\mathrel{\clipbox{0pt 0pt 0.7em 0pt}{$\hookrightarrow$}}}
+\newcommand{\longhookrightarrow}{%
+  \realhook
+  \mkern-2mu
+  \relbar
+  \mkern-2.5mu
+  \rightarrow
+}
+\makeatother
 
 % sets of numbers
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Cc}{\mathcal{C}}
-\renewcommand{\P}{\mathcal{P}}
-\newcommand{\F}{\mathcal{F}}
+\newcommand{\Z}{{\ensuremath{\mathbb{Z}}}\xspace}
+\newcommand{\N}{{\ensuremath{\mathbb{N}}}\xspace}
+\newcommand{\B}{{\ensuremath{\mathbb{B}}}\xspace}
+\newcommand{\C}{{\ensuremath{\mathbb{C}}}\xspace}
+\newcommand{\R}{{\ensuremath{\mathbb{R}}}\xspace}
+\newcommand{\Q}{{\ensuremath{\mathbb{Q}}}\xspace}
+\newcommand{\F}{{\ensuremath{\mathbb{F}}}\xspace}
+\newcommand{\K}{{\ensuremath{\mathbb{K}}}\xspace}
+\newcommand{\D}{{\ensuremath{\mathbb{D}}}\xspace}
+\renewcommand{\H}{{\ensuremath{\mathbb{H}}}\xspace}
 
+\newcommand{\Zgt}{\Z_{>0}}
+\newcommand{\Zge}{\Z_{\ge 0}}
+\renewcommand{\O}{\varnothing} % perhaps this is not a good symbol
+
+% fraktur
+\newcommand{\fm}{{\mathfrak{m}}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fM}{\mathfrak{M}}
+\newcommand{\fN}{\mathfrak{N}}
+
+% mathcal
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cN}{\mathcal{N}}
+
+% bold
+\newcommand{\one}{\mathbf{1}}
+\DeclareMathOperator*{\E}{\mathbf{E}}
+
+%roman 
+\DeclareMathOperator{\rC}{C}
 
 % topology
-\DeclareMathOperator{\intt}{\text{int}}
-\DeclareMathOperator{\cl}{\text{cl}}
-\DeclareMathOperator{\diam}{\text{diam}}
-\DeclareMathOperator{\topp}{\text{top}}
-\DeclareMathOperator{\cotop}{\text{cotop}}
-\DeclareMathOperator{\supp}{\text{supp}}
-\newcommand{\oball}{\mathbb{B}}
-\newcommand{\cball}{\bar{\mathbb{B}}}
-
-% measure theory
-\renewcommand{\1}{\mathbb{1}}
-\newcommand{\haus}{\mathcal{H}}
-\newcommand{\leb}{\mathcal{L}}
+\DeclareMathOperator{\intt}{int}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\topp}{top}
+\DeclareMathOperator{\cotop}{cotop}
+\DeclareMathOperator{\supp}{supp}
 
 % linear algebra
-\DeclareMathOperator{\rank}{\text{rank}}
-\DeclareMathOperator{\vol}{\text{vol}}
-\DeclareMathOperator{\sgn}{\text{sgn}}
-\DeclareMathOperator{\alt}{\text{Alt}}
-\newcommand{\ext}{\bigwedge}
-\DeclareMathOperator{\pr}{\text{pr}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\adj}{adj}
 
 % analysis
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vol}{vol}
+\newcommand{\rb}{\mathrm{b}} % balanced set
+
+% algebra
+\DeclareMathOperator{\Nil}{Nil}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\charr}{char}
+\DeclareMathOperator{\height}{ht}
+\DeclareMathOperator{\depth}{depth}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Aff}{Aff}
+\DeclareMathOperator{\Stab}{Stab}
+\newcommand{\ext}[1]{\bigwedge\nolimits^{\mkern-6mu #1}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\ab}{\mathrm{ab}}
+\newcommand{\normsg}{\vartriangleleft}
 
 
 
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\pars}{(}{)}
+\DeclarePairedDelimiter{\bras}{[}{]}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\ang}{\langle}{\rangle}
 
+% colons
+
+%COLOR
+\definecolor{fresh}{HTML}{2bb101}
+\definecolor{checked}{HTML}{1e5e06}
+\definecolor{double}{HTML}{5E3800}
+\definecolor{external}{HTML}{a81a78}
+\definecolor{later}{HTML}{0410ff}
+\definecolor{minor-rev}{HTML}{d96a09}
+\definecolor{major-rev}{HTML}{c90000}
+\definecolor{skip}{HTML}{ffffff}%
+\definecolor{normal}{HTML}{000000}%
+% %BLACK
+% \definecolor{fresh}{HTML}{000000}
+% \definecolor{checked}{HTML}{000000}
+% \definecolor{double}{HTML}{000000}
+% \definecolor{external}{HTML}{000000}
+% \definecolor{later}{HTML}{000000}
+% \definecolor{minor-rev}{HTML}{000000}
+% \definecolor{major-rev}{HTML}{000000}
