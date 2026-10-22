@@ -10,7 +10,6 @@ Shared setup for LuaLaTeX documents using `unicode-math` and STIX Two.
 | `mrnumber.dbx` | The biblatex data model for MathSciNet numbers. |
 | `paper.tex` | Document class, preamble import, paper content, and metadata. |
 | `refs.bib` | Bibliography entries. |
-| `fonts/` | Local STIX Two text/math fonts and their licence. |
 | `latex.json` | Editor snippets. |
 
 ## Use this repository for another paper
@@ -25,7 +24,6 @@ new-paper/
 ├── myMath.sty
 ├── myEnvs.sty
 ├── mrnumber.dbx
-├── fonts/                  # The five STIX Two .otf files and OFL.txt
 ├── latexmkrc
 ├── .vscode/settings.json   # LaTeX Workshop build and preview configuration
 └── .gitignore
@@ -34,8 +32,8 @@ new-paper/
 `paper.tex` is an example paper and can be replaced with your own document.
 `latex.json` and this README are optional for compilation. `build/`, generated
 PDFs, and auxiliary files are not source files and do not need to be copied.
-The font files can be omitted only when the same STIX Two fonts are installed
-in the TeX distribution.
+Install STIX Two Text and STIX Two Math on each machine as described under
+[Fonts and notation](#fonts-and-notation).
 
 The shared LaTeX files provide the document setup. `latexmkrc` is a configuration
 file read by the **latexmk build program**, not by LaTeX. It selects LuaLaTeX,
@@ -50,8 +48,8 @@ by the preamble, plus latexmk and a compatible Biber. For VS Code, install the
 LaTeX Workshop extension and open the cloned project as a folder. A full TeX
 installation is the simplest way to supply the package dependencies.
 
-Commit the template files, including `.vscode/settings.json` and the font
-licence, before cloning. A clone contains committed files; it does not copy
+Commit the template files, including `.vscode/settings.json`, before cloning.
+A clone contains committed files; it does not copy
 untracked files or the ignored `.tools/biber` executable.
 
 Start `paper.tex` with:
@@ -116,22 +114,24 @@ With these manual commands, open `paper.pdf` at the project root.
 
 ## Fonts and notation
 
-The font setup first looks for these files in `fonts/`:
+The preamble loads the installed font families `STIX Two Text` and
+`STIX Two Math` by name. Fonts are not bundled with this repository.
+Math stylistic sets 4, 10, and 11 are retained.
 
-```text
-fonts/STIXTwoText-Regular.otf
-fonts/STIXTwoText-Italic.otf
-fonts/STIXTwoText-Bold.otf
-fonts/STIXTwoText-BoldItalic.otf
-fonts/STIXTwoMath-Regular.otf
-```
+Download the static OpenType desktop fonts from the
+[official STIX Two releases](https://github.com/stipub/stixfonts/releases/latest).
+Install the regular, italic, bold, and bold italic faces of STIX Two Text,
+plus STIX Two Math, using your operating system's font installer. See the
+[STIX project website](https://www.stixfonts.org/) for installation information.
+Alternatively, install the
+[`stix2-otf` package](https://ctan.org/pkg/stix2-otf) through TeX Live or MiKTeX.
 
-The bundled fonts include their licence in `fonts/OFL.txt`. When local files
-are absent, the setup uses the same STIX Two fonts from the TeX installation.
-Math stylistic sets 4, 10, and 11 are retained. To use another location, define
-`\STIXTwoTextPath` and/or `\STIXTwoMathPath` before loading the preamble;
-include a trailing slash in each path. LuaLaTeX is required; there is no pdfLaTeX
-or Latin Modern fallback.
+On Linux, downloaded `.otf` files can be installed in
+`~/.local/share/fonts/`; run `fc-cache -f` afterward. If LuaLaTeX does not find
+newly installed fonts, refresh its font database with `luaotfload-tool --update`.
+
+LuaLaTeX and both font families are required; there is no pdfLaTeX or Latin
+Modern fallback.
 
 For another document, declare its class and load the preamble. The preamble
 already selects `refs.bib` and defines the shared notation:

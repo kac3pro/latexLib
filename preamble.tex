@@ -7,36 +7,9 @@
 \usepackage{fontspec}
 \usepackage{unicode-math}
 
-% Prefer project-local STIX Two fonts; otherwise use the TeX-installed files.
-% Set these paths before \input{preamble.tex} to use another font directory.
-\providecommand{\STIXTwoTextPath}{fonts/}
-\providecommand{\STIXTwoMathPath}{fonts/}
-\IfFileExists{\STIXTwoTextPath STIXTwoText-Regular.otf}{%
-  \setmainfont{STIXTwoText}[
-    Path=\STIXTwoTextPath,
-    Extension=.otf,
-    UprightFont=*-Regular,
-    ItalicFont=*-Italic,
-    BoldFont=*-Bold,
-    BoldItalicFont=*-BoldItalic
-  ]
-}{%
-  \setmainfont{STIXTwoText}[
-    Extension=.otf,
-    UprightFont=*-Regular,
-    ItalicFont=*-Italic,
-    BoldFont=*-Bold,
-    BoldItalicFont=*-BoldItalic
-  ]
-}
-\IfFileExists{\STIXTwoMathPath STIXTwoMath-Regular.otf}{%
-  \setmathfont{STIXTwoMath-Regular.otf}[
-    Path=\STIXTwoMathPath,
-    StylisticSet={4,10,11}
-  ]
-}{%
-  \setmathfont{STIXTwoMath-Regular.otf}[StylisticSet={4,10,11}]
-}
+% Use installed STIX Two fonts by family name.
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math}[StylisticSet={4,10,11}]
 
 % Page layout and general-purpose packages.
 \usepackage[headings]{fullpage}
