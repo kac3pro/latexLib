@@ -1,8 +1,8 @@
 {
   "latex-workshop.latex.build.enableMagicComments": false,
   "latex-workshop.latex.recipe.default": "latexmk (LuaLaTeX + Biber)",
-  "latex-workshop.latex.outDir": "%DIR%/build",
-  "latex-workshop.latex.auxDir": "%OUTDIR%",
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.latex.auxDir": "%DIR%/build",
   "latex-workshop.latex.recipes": [
     {
       "name": "latexmk (LuaLaTeX + Biber)",
@@ -19,6 +19,7 @@
         "-interaction=nonstopmode",
         "-halt-on-error",
         "-file-line-error",
+        "-auxdir=%AUXDIR%",
         "-outdir=%OUTDIR%",
         "%DOC%"
       ]

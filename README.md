@@ -8,7 +8,7 @@ Shared setup for LuaLaTeX documents using `unicode-math` and STIX Two.
 | `myMath.sty` | Custom math commands and their immediate dependencies. No page layout or font selection. |
 | `myEnvs.sty` | Theorem, definition, remark, and exercise environments. |
 | `mrnumber.dbx` | The biblatex data model for MathSciNet numbers. |
-| `jung.tex` | Document class, preamble import, paper content, and metadata. |
+| `paper.tex` | Document class, preamble import, paper content, and metadata. |
 | `refs.bib` | Bibliography entries. |
 | `fonts/` | Local STIX Two text/math fonts and their licence. |
 | `latex.json` | Editor snippets. |
@@ -31,7 +31,7 @@ new-paper/
 └── .gitignore
 ```
 
-`jung.tex` is an example paper and can be replaced with your own document.
+`paper.tex` is an example paper and can be replaced with your own document.
 `latex.json` and this README are optional for compilation. `build/`, generated
 PDFs, and auxiliary files are not source files and do not need to be copied.
 The font files can be omitted only when the same STIX Two fonts are installed
@@ -81,16 +81,18 @@ Build from the repository root with a TeX installation containing LuaLaTeX,
 the packages loaded in `preamble.tex`, and Biber:
 
 ```sh
-latexmk jung.tex
+latexmk paper.tex
 ```
 
 `latexmkrc` selects LuaLaTeX, runs Biber when needed, and repeats LaTeX until
-citations and cross-references resolve. All generated files stay in `build/`,
-including `jung.pdf`, `jung.synctex.gz`, `.aux`, `.bcf`, `.bbl`, and logs. For a
-document called `paper.tex`, the PDF is `build/paper.pdf`.
+citations and cross-references resolve. Auxiliary files stay in `build/`,
+including `.aux`, `.bcf`, `.bbl`, `.fls`, and logs. The final PDF is placed beside
+the main `.tex` file: for `paper.tex`, open `paper.pdf` at the project root.
+When SyncTeX is enabled, `paper.synctex.gz` also stays beside the PDF so editor
+navigation works. latexmk emulates the separate auxiliary directory for TeX Live.
 
 The workspace settings in `.vscode/settings.json` configure LaTeX Workshop to
-use this complete build and open the PDF from `build/`. Use **Build LaTeX project**
+use this complete build and open the PDF from the project root. Use **Build LaTeX project**
 in VS Code or `latexmk paper.tex` for a new paper. A single `lualatex` pass cannot produce a new
 bibliography or resolve all citation links.
 
@@ -103,13 +105,14 @@ To build without latexmk (with Biber on your `PATH`):
 
 ```sh
 mkdir -p build
-lualatex -output-directory=build jung.tex
-biber --input-directory=build --output-directory=build jung
-lualatex -output-directory=build jung.tex
-lualatex -output-directory=build jung.tex
+lualatex -output-directory=build paper.tex
+biber --input-directory=build --output-directory=build paper
+lualatex -output-directory=build paper.tex
+lualatex -output-directory=build paper.tex
+mv build/paper.pdf paper.pdf
 ```
 
-With these manual commands, open `build/jung.pdf`.
+With these manual commands, open `paper.pdf` at the project root.
 
 ## Fonts and notation
 

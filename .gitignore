@@ -1,7 +1,7 @@
 # LaTeX build output.
 /build/
 /.tools/
-/jung.pdf
+/*.pdf
 *.aux
 *.bbl
 *.bcf
